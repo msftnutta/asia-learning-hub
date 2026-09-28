@@ -198,7 +198,7 @@ When **Demo login** finishes, the conversation returns to **Account number** and
 | "Something unexpected happened" instead of your error message | Error handling is still **Raise an error**. Redo Step 5. |
 | HTTP error mentioning an invalid URL | `Global.BaseUrl` is empty or doesn't start with `https://`. Start a new test conversation. |
 | HTTP 404, or the error message is `Endpoint not found.` | `Global.BaseUrl` must end with `/api` and must not end with a slash. |
-| The agent replies without running your topic | Make the trigger description more specific, and confirm general knowledge is off ([Module 2](./02-create-agent.md#step-2--check-the-agent-settings)). |
+| The agent replies without running your topic | Make the trigger description more specific, and confirm **Web Search** is off ([Module 2](./02-create-agent.md#step-3--check-the-agent-settings)). |
 
 ---
 

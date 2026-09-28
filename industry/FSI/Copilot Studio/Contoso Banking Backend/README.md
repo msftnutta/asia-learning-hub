@@ -25,14 +25,14 @@ Work through the modules in order. Each one ends with a **✅ Checkpoint** and a
 | # | Module | Time | What you'll do |
 | --- | --- | --- | --- |
 | 1 | [Deploy the banking API](./lab/01-deploy-backend.md) | 20 min | Create a resource group and a P0v3 plan, then deploy from Cloud Shell |
-| 2 | [Create the agent](./lab/02-create-agent.md) | 10 min | Create a standard agent, add instructions, and learn the variables |
+| 2 | [Create the agent](./lab/02-create-agent.md) | 15 min | Create a standard agent from a prompt, review the generated instructions, and learn the variables |
 | 3 | [Demo login and account number](./lab/03-demo-login.md) | 25 min | Build your first HTTP Request node, handle errors, and use global variables |
 | 4 | [Balance check workflow](./lab/04-balance-check.md) | 35 min | Build a reusable agent flow that checks funds, then a Balance inquiry topic that calls it |
 | 5 | [Transfer money](./lab/05-transfer.md) | 30 min | List saved accounts, check funds with the flow, confirm, and send a POST request |
 | 6 | [Pay bills and buy vouchers](./lab/06-bills-and-vouchers.md) | 30 min | Reuse the same pattern for two more journeys |
-| 7 | [Test, share, and clean up](./lab/07-test-and-clean-up.md) | 15 min | Run an end-to-end test, reset the data, and delete your resources |
+| 7 | [Test, share, and clean up](./lab/07-test-and-clean-up.md) | 20 min | Link the instructions to your topics, run an end-to-end test, reset the data, and delete your resources |
 
-**Total:** about 2 hours 45 minutes.
+**Total:** about 2 hours 55 minutes.
 
 ## Prerequisites
 

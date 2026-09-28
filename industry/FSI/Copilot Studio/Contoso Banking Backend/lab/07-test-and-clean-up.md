@@ -4,8 +4,8 @@
 
 | | |
 | --- | --- |
-| **Time** | 15 minutes |
-| **You will** | Run an end-to-end test, reset the demo data, optionally share the agent, and delete your Azure resources |
+| **Time** | 20 minutes |
+| **You will** | Link the agent's instructions to your topics, run an end-to-end test, reset the demo data, optionally share the agent, and delete your Azure resources |
 
 ## Step 1 — Reset the demo data
 
@@ -17,9 +17,20 @@ APP=<the app name you wrote down in Module 1>
 az webapp restart --name $APP --resource-group $RG
 ```
 
-## Step 2 — Run the end-to-end test
+## Step 2 — Link the instructions to your topics
 
-In the **Test** pane, select **Refresh**, and then run this whole script in **one** conversation. To make the canvas follow the conversation from topic to topic, turn on **Track between topics** in the Test pane menu.
+In Module 2, the instructions named the topics in plain text, because they didn't exist yet. Now that you've built them, turn each name into a real link, so the agent calls exactly that topic.
+
+1. On the agent's **Overview** page, in the **Instructions** section, select **Edit**.
+2. In the **What you can help with** section, find the first topic name, for example `Demo login topic`. Delete it, type a slash (`/`), and then select **Demo login** from the menu.
+3. Repeat for **Account number**, **Balance inquiry**, **Transfer money**, **Pay a bill**, and **Buy a voucher**.
+4. Select **Save**.
+
+Each link appears as a highlighted chip. If a topic isn't in the `/` menu, check that its name matches exactly and that you saved it.
+
+## Step 3 — Run the end-to-end test
+
+In the **Test** pane, select **Refresh**, and then run this whole script in **one** conversation. To make the canvas follow the conversation from topic to topic, select the **Activity map** icon in the Test pane, and then select **Tracking between topics**.
 
 | # | Type | Expected result | What runs |
 | --- | --- | --- | --- |
@@ -42,7 +53,7 @@ In the **Test** pane, select **Refresh**, and then run this whole script in **on
 - The final balance equals the starting balance minus the confirmed transactions only.
 - **Flows** → **Check available funds** → **Run history** shows six new runs, one for each row marked "→ flow".
 
-## Step 3 — Share the agent (optional)
+## Step 4 — Share the agent (optional)
 
 1. Select **Publish** in Copilot Studio.
 2. Open **Channels**, and select **Demo website** to get a link you can share with classmates.

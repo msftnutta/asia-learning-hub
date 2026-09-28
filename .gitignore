@@ -4,5 +4,5 @@ node_modules/
 # Local VS Code settings and MCP configuration
 .vscode/
 
-# Azure CLI "az webapp up" local cache
+# Azure CLI local cache
 .azure/

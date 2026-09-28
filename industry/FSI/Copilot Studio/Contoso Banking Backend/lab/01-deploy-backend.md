@@ -55,20 +55,17 @@ echo "Your app name is: $APP"
 > [!IMPORTANT]
 > Write down your app name. Cloud Shell forgets these variables when it times out. If that happens, run this step again, but set `APP` to the name you wrote down instead of generating a new one.
 
-## Step 3 — Confirm P0v3 is available
-
-```bash
-az appservice list-locations --linux-workers-enabled --sku P0V3 --query "[].name" -o tsv | grep -i "southeast asia"
-```
-
-- If the output shows **Southeast Asia**, continue.
-- If there's no output, run `LOCATION=eastasia` and use East Asia for the rest of this module.
-
-## Step 4 — Create the resource group and App Service plan
+## Step 3 — Create the resource group
 
 ```bash
 az group create --name $RG --location $LOCATION
+```
 
+## Step 4 — Create the P0v3 App Service plan
+
+Creating the plan is the real availability check. If P0v3 can't run in the region, this command fails with a clear error, and nothing is billed.
+
+```bash
 az appservice plan create \
   --name $PLAN \
   --resource-group $RG \
@@ -77,23 +74,71 @@ az appservice plan create \
   --sku P0V3
 ```
 
-## Step 5 — Download the code and deploy it
+Confirm what you got:
 
 ```bash
-git clone https://github.com/msftnutta/asia-learning-hub.git
-cd "asia-learning-hub/industry/FSI/Copilot Studio/Contoso Banking Backend"
-
-az webapp up \
-  --name $APP \
-  --resource-group $RG \
-  --plan $PLAN \
-  --location $LOCATION \
-  --runtime "NODE:22-lts"
+az appservice plan show --name $PLAN --resource-group $RG --query "{sku:sku.name, region:location, kind:kind}" -o table
 ```
 
-Run `az webapp up` **inside the backend folder**, which contains `package.json` and `server.js`. The command creates the web app in your existing plan, uploads the code, runs `npm install` on Azure, and starts the app with `npm start`. It takes about 2–4 minutes.
+The output should show `P0v3`, `Southeast Asia`, and `linux`.
 
-If you're working from your own fork, replace `msftnutta` with your GitHub username.
+**If the plan command fails** with an error saying the SKU isn't available, the region has no capacity, or the pricing tier isn't allowed, switch to East Asia and start again from Step 3:
+
+```bash
+az group delete --name $RG --yes
+LOCATION=eastasia
+```
+
+> [!NOTE]
+> Don't use `az appservice list-locations` to decide whether P0v3 is available. Its results depend on your subscription and CLI version, and it can return nothing even when the plan would be created successfully.
+
+## Step 5 — Create the web app and deploy the code
+
+1. Download the code, and move into the backend folder. This folder contains `package.json` and `server.js`.
+
+   ```bash
+   git clone https://github.com/msftnutta/asia-learning-hub.git
+   cd "asia-learning-hub/industry/FSI/Copilot Studio/Contoso Banking Backend"
+   ```
+
+   If you're working from your own fork, replace `msftnutta` with your GitHub username.
+
+2. Create the web app in your plan, with the Node.js 22 runtime:
+
+   ```bash
+   az webapp create \
+     --name $APP \
+     --resource-group $RG \
+     --plan $PLAN \
+     --runtime "NODE:22-lts"
+   ```
+
+3. Turn on build automation, so App Service runs `npm install` when you deploy:
+
+   ```bash
+   az webapp config appsettings set \
+     --name $APP \
+     --resource-group $RG \
+     --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
+   ```
+
+4. Zip the folder's contents, and then deploy the zip:
+
+   ```bash
+   rm -f ~/contoso-bank.zip
+   zip -r ~/contoso-bank.zip . -x "node_modules/*"
+
+   az webapp deploy \
+     --name $APP \
+     --resource-group $RG \
+     --src-path ~/contoso-bank.zip \
+     --type zip
+   ```
+
+   Run `zip` **inside the backend folder**, so that `package.json` sits at the top of the zip. The deployment installs the dependencies and starts the app with `npm start`. It takes about 2–4 minutes.
+
+> [!NOTE]
+> Older guides use `az webapp up` for this step. That command is deprecated, and Cloud Shell shows a warning if you run it. Use the commands above instead.
 
 ## Step 6 — Get your API base URL
 
@@ -140,9 +185,10 @@ Only use this if you want every push to your fork to redeploy the app automatica
 
 | Symptom | Fix |
 | --- | --- |
-| `Could not auto-detect the runtime stack` | You aren't in the backend folder. Run the `cd` command from Step 5 again. |
-| SKU not available, or a capacity error | Run `az group delete --name $RG --yes`, set `LOCATION=eastasia`, and repeat Steps 4 and 5. |
-| `Website with given name already exists` | App names are global. Run `APP=contoso-bank-$INITIALS-$RANDOM` and repeat Step 5. |
+| The browser shows **Application Error**, or the logs say `Cannot find module 'express'` | Build automation didn't run. Repeat Step 5.3, and then repeat Step 5.4. |
+| The logs say `Cannot find module '/home/site/wwwroot/server.js'` | The zip was created in the wrong folder. Run the `cd` command from Step 5.1, and then repeat Step 5.4. |
+| SKU not available, a capacity error, or the pricing tier isn't allowed | Run `az group delete --name $RG --yes`, set `LOCATION=eastasia`, and repeat Steps 3–5. |
+| `Website with given name already exists` | App names are global. Run `APP=contoso-bank-$INITIALS-$RANDOM` and repeat Steps 5.2–5.4. |
 | The browser shows **Application Error** | Run `az webapp log tail --name $APP --resource-group $RG` and read the error. |
 | Balances look wrong after testing | The data is in memory. Run `az webapp restart --name $APP --resource-group $RG` to reset it. |
 
