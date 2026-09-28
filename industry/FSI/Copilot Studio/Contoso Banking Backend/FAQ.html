@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contoso Bank — Help & FAQ</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Always show all FAQ answers — no collapsible behaviour */
+    .faq-answer { max-height: none !important; overflow: visible !important; }
+    .faq-answer > div { display: block !important; }
+    .faq-question { cursor: default !important; pointer-events: none !important; }
+    .faq-question:hover { background: none !important; }
+    .chevron { display: none !important; }
+    .faq-item { border-color: rgba(99,102,241,0.3) !important;
+                box-shadow: 0 0 0 1px rgba(99,102,241,0.1), 0 4px 16px rgba(0,0,0,0.3) !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <nav class="nav-bar">
+      <div class="nav-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
+          <path d="M8 22L16 10L24 22H8Z" fill="white" opacity="0.9"/>
+          <circle cx="16" cy="18" r="3" fill="white"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">Contoso Bank</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#learning-path" class="nav-link">Learn</a>
+        <a href="FAQ.html" class="nav-link active">FAQ</a>
+        <a href="#" class="nav-link">Contact</a>
+        <a href="api-docs.html" class="nav-link">API Docs</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <a href="#" class="btn-nav">Open Account</a>
+      </div>
+      <button class="hamburger" aria-label="Toggle menu" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#22c55e"/></svg>
+        24/7 Support Available
+      </div>
+      <h1 class="hero-title">How can we <span class="gradient-text">help you</span> today?</h1>
+      <p class="hero-subtitle">Browse our comprehensive FAQ or search for specific answers about your Contoso Bank account.</p>
+      <div class="search-wrapper">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="9" cy="9" r="7" stroke="#94a3b8" stroke-width="2"/>
+          <path d="M14 14L18 18" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search for answers — e.g. &quot;transfer limit&quot;, &quot;overseas fee&quot; ..." autocomplete="off" />
+        <kbd class="search-shortcut">⌘K</kbd>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">120+</span><span class="stat-label">Articles</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">8</span><span class="stat-label">Categories</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">&lt; 2 min</span><span class="stat-label">Avg. Read</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORY PILLS ===== -->
+  <section class="category-strip" id="categories">
+    <div class="container">
+      <div class="pill-row">
+        <button class="pill active" data-target="getting-started">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Getting Started
+        </button>
+        <button class="pill" data-target="deposits">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          Deposits
+        </button>
+        <button class="pill" data-target="withdrawals">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          Withdrawals
+        </button>
+        <button class="pill" data-target="transfers">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+          Transfers
+        </button>
+        <button class="pill" data-target="limits">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Limits & Fees
+        </button>
+        <button class="pill" data-target="overseas">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          Overseas
+        </button>
+        <button class="pill" data-target="security">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Security
+        </button>
+        <button class="pill" data-target="account">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Account
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-layout container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-sticky">
+        <p class="sidebar-heading">Quick Nav</p>
+        <nav class="sidebar-nav" id="sidebarNav">
+          <a href="#getting-started" class="sidebar-link active" data-section="getting-started">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            Getting Started
+          </a>
+          <a href="#deposits" class="sidebar-link" data-section="deposits">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            Deposits
+          </a>
+          <a href="#withdrawals" class="sidebar-link" data-section="withdrawals">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            Withdrawals
+          </a>
+          <a href="#transfers" class="sidebar-link" data-section="transfers">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+            Transfers
+          </a>
+          <a href="#limits" class="sidebar-link" data-section="limits">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Limits & Fees
+          </a>
+          <a href="#overseas" class="sidebar-link" data-section="overseas">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>
+            Overseas
+          </a>
+          <a href="#security" class="sidebar-link" data-section="security">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Security
+          </a>
+          <a href="#account" class="sidebar-link" data-section="account">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Account
+          </a>
+
+        </nav>
+        <div class="sidebar-contact">
+          <p class="sidebar-contact-title">Still need help?</p>
+          <a href="#" class="btn-contact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            Live Chat
+          </a>
+          <a href="#" class="btn-contact btn-contact-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Call Support
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- FAQ Sections -->
+    <div class="faq-content" id="faqContent">
+
+      <!-- No results -->
+      <div class="no-results" id="noResults" style="display:none">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="#e2e8f0" stroke-width="2"/><path d="M22 22l20 20M42 22L22 42" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>No results found</h3>
+        <p>Try a different search term or browse the categories above.</p>
+      </div>
+
+      <!-- ===== GETTING STARTED ===== -->
+      <section class="faq-section" id="getting-started">
+        <div class="section-header">
+          <div class="section-icon" style="--icon-color:#6366f1">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <h2 class="section-title">Getting Started</h2>
+            <p class="section-desc">Everything you need to open and use your Contoso Bank account</p>
+          </div>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I open a Contoso Bank account?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Opening a Contoso Bank account takes less than 5 minutes. Download the Contoso Bank app from the App Store or Google Play, then:</p>
+              <ol>
+                <li>Tap <strong>Create Account</strong> and enter your email address.</li>
+                <li>Verify your email with the 6-digit code we send you.</li>
+                <li>Complete a quick identity verification by scanning your government-issued ID and taking a selfie.</li>
+                <li>Set up your PIN and biometric authentication.</li>
+                <li>Your account is instantly active — no waiting period required.</li>
+              </ol>
+              <div class="callout callout-info">Your account is FDIC-insured up to $250,000 through our partner bank.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What documents do I need to open an account?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>You'll need the following to verify your identity (KYC compliance):</p>
+              <ul>
+                <li><strong>Primary ID:</strong> Passport, national ID card, or driver's license</li>
+                <li><strong>Proof of address:</strong> Utility bill, bank statement, or lease (dated within 90 days)</li>
+                <li><strong>Selfie:</strong> A clear, real-time photo taken during onboarding</li>
+              </ul>
+              <p>All documents must be valid (not expired) and clearly legible.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Is Contoso Bank available in my country?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Contoso Bank currently serves customers in <strong>42 countries</strong> across North America, Europe, Southeast Asia, and Oceania. You can check eligibility by entering your country on our <a href="#">availability page</a>.</p>
+              <p>We're expanding rapidly. Join our waitlist if your country isn't listed yet.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What account types does Contoso Bank offer?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>We offer three account tiers to match your needs:</p>
+              <table class="faq-table">
+                <thead><tr><th>Feature</th><th>Starter</th><th>Plus</th><th>Premium</th></tr></thead>
+                <tbody>
+                  <tr><td>Monthly fee</td><td>Free</td><td>$4.99</td><td>$14.99</td></tr>
+                  <tr><td>Physical card</td><td>Virtual only</td><td>✓</td><td>Metal card</td></tr>
+                  <tr><td>ATM withdrawals</td><td>2/month free</td><td>5/month free</td><td>Unlimited free</td></tr>
+                  <tr><td>FX fee</td><td>1.5%</td><td>0.5%</td><td>0%</td></tr>
+                  <tr><td>Savings pockets</td><td>1</td><td>5</td><td>Unlimited</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I navigate the Contoso Bank app?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>The app is organized into five main tabs at the bottom of your screen:</p>
+              <ul>
+                <li><strong>Home</strong> — balance overview, recent transactions, and quick actions</li>
+                <li><strong>Move Money</strong> — send, request, deposit, and withdraw</li>
+                <li><strong>Cards</strong> — manage your virtual and physical cards</li>
+                <li><strong>Save</strong> — savings pockets, goals, and interest rates</li>
+                <li><strong>Profile</strong> — settings, security, and support</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Can I open a joint account?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! Joint accounts are available for Plus and Premium members. Both account holders must be existing Contoso Bank users. To open a joint account:</p>
+              <ol>
+                <li>Go to <strong>Profile → Accounts → Add Joint Account</strong>.</li>
+                <li>Enter your co-holder's registered email or phone number.</li>
+                <li>Both parties must accept the invitation within 48 hours.</li>
+              </ol>
+              <p>Both holders have equal access and both must consent to close the account.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I set up notifications and alerts?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Go to <strong>Profile → Notifications</strong> to customize alerts for:</p>
+              <ul>
+                <li>Every transaction (push, SMS, or email)</li>
+                <li>Low balance threshold alerts</li>
+                <li>Unusual activity warnings</li>
+                <li>Scheduled payment reminders</li>
+                <li>Promotional offers (optional)</li>
+              </ul>
+              <div class="callout callout-tip">We recommend enabling real-time transaction alerts for maximum security.</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== DEPOSITS ===== -->
+      <section class="faq-section" id="deposits">
+        <div class="section-header">
+          <div class="section-icon" style="--icon-color:#10b981">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </div>
+          <div>
+            <h2 class="section-title">Deposits</h2>
+            <p class="section-desc">Fund your account quickly and securely</p>
+          </div>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I deposit money into my Contoso Bank account?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>You can add money to your account through several methods:</p>
+              <ul>
+                <li><strong>Bank transfer (ACH):</strong> Link an external bank — arrives in 1–3 business days (free)</li>
+                <li><strong>Instant bank transfer:</strong> Via supported banks — arrives within minutes ($0.99 fee)</li>
+                <li><strong>Debit card top-up:</strong> Immediate — up to $1,000/day (1% fee, minimum $0.50)</li>
+                <li><strong>Direct deposit:</strong> Set Contoso Bank as your payroll destination — free and instant on payday</li>
+                <li><strong>Cash deposit:</strong> At 60,000+ partner retail locations (fees may apply)</li>
+                <li><strong>Check deposit:</strong> Mobile photo scan in-app — 1–2 business day hold</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How long does a bank transfer deposit take?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Processing times vary by method:</p>
+              <ul>
+                <li><strong>Standard ACH:</strong> 1–3 business days</li>
+                <li><strong>Same-day ACH:</strong> Same business day if submitted before 3 PM ET (additional fee)</li>
+                <li><strong>Instant transfer:</strong> Within minutes (supported banks only)</li>
+                <li><strong>Debit card top-up:</strong> Immediate</li>
+                <li><strong>Wire transfer:</strong> 1 business day (domestic), 2–5 days (international)</li>
+                <li><strong>Check mobile deposit:</strong> Next business day for amounts up to $500; 2 days for larger amounts</li>
+              </ul>
+              <div class="callout callout-info">First-time deposits may have an additional 1-day hold for fraud prevention.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I deposit a check using the mobile app?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Mobile check deposit is easy. Follow these steps:</p>
+              <ol>
+                <li>In the app, go to <strong>Move Money → Deposit Check</strong>.</li>
+                <li>Enter the check amount.</li>
+                <li>Place the check on a flat, well-lit surface.</li>
+                <li>Photograph the front of the check — make sure all four corners are visible.</li>
+                <li>Photograph the back of the check — endorse it first with your signature and "For Contoso Bank mobile deposit only".</li>
+                <li>Review and submit.</li>
+              </ol>
+              <div class="callout callout-warning">Keep the physical check for 30 days after it clears, then shred it.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I set up direct deposit?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Direct deposit is the fastest and most reliable way to fund your account. To set it up:</p>
+              <ol>
+                <li>Go to <strong>Move Money → Direct Deposit</strong>.</li>
+                <li>Your routing number and account number are displayed — share these with your employer's payroll department.</li>
+                <li>Alternatively, tap <strong>Download Pre-filled Form</strong> to get a ready-to-submit PDF.</li>
+              </ol>
+              <p>Contoso Bank offers early paycheck access — get your direct deposit up to <strong>2 days early</strong>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Are there any deposit fees?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Most deposit methods are free. Here's a summary:</p>
+              <table class="faq-table">
+                <thead><tr><th>Method</th><th>Fee</th></tr></thead>
+                <tbody>
+                  <tr><td>ACH bank transfer</td><td>Free</td></tr>
+                  <tr><td>Direct deposit</td><td>Free</td></tr>
+                  <tr><td>Instant bank transfer</td><td>$0.99</td></tr>
+                  <tr><td>Debit card top-up</td><td>1% (min $0.50)</td></tr>
+                  <tr><td>Cash deposit (retail)</td><td>$3.95 (partner fee)</td></tr>
+                  <tr><td>Check deposit</td><td>Free</td></tr>
+                  <tr><td>Wire transfer</td><td>$15 (incoming domestic)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What is the maximum deposit limit?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Deposit limits depend on your account tier and verification status:</p>
+              <ul>
+                <li><strong>Debit card top-up:</strong> $1,000/day, $5,000/month</li>
+                <li><strong>ACH transfer:</strong> $25,000/day, $100,000/month</li>
+                <li><strong>Check deposit:</strong> $5,000/day, $10,000/month</li>
+                <li><strong>Wire transfer:</strong> No limit (subject to AML review over $50,000)</li>
+              </ul>
+              <p>Premium members may apply for higher limits by contacting support.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== WITHDRAWALS ===== -->
+      <section class="faq-section" id="withdrawals">
+        <div class="section-header">
+          <div class="section-icon" style="--icon-color:#f59e0b">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          </div>
+          <div>
+            <h2 class="section-title">Withdrawals</h2>
+            <p class="section-desc">Access your money whenever you need it</p>
+          </div>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I withdraw money from my account?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>There are multiple ways to access your funds:</p>
+              <ul>
+                <li><strong>ATM withdrawal:</strong> Use your Contoso Bank debit card at any ATM in our network</li>
+                <li><strong>Transfer to external bank:</strong> Via ACH or wire transfer</li>
+                <li><strong>Cash back at retail:</strong> Get cash back at participating stores when you make a purchase</li>
+                <li><strong>Instant transfer:</strong> Transfer to an eligible debit card instantly</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I find a fee-free ATM?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Contoso Bank has over <strong>55,000 fee-free ATMs</strong> nationwide through the Allpoint and MoneyPass networks. To find one:</p>
+              <ol>
+                <li>Open the app and go to <strong>Cards → Find ATM</strong>.</li>
+                <li>Use your current location or enter an address.</li>
+                <li>Filter by "Fee-free only" to see Contoso Bank network ATMs.</li>
+              </ol>
+              <p>You can also search via the Allpoint or MoneyPass ATM locator on their websites.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What are the ATM withdrawal fees?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>ATM fee structure by account tier:</p>
+              <ul>
+                <li><strong>Starter:</strong> First 2 withdrawals/month free, then $2.50/withdrawal at Contoso Bank-network ATMs; $3.50 at out-of-network ATMs</li>
+                <li><strong>Plus:</strong> First 5 withdrawals/month free, then $2.50/withdrawal; $3.50 out-of-network</li>
+                <li><strong>Premium:</strong> Unlimited free withdrawals, $2.50 reimbursed for out-of-network (up to $30/month)</li>
+              </ul>
+              <div class="callout callout-info">Third-party ATM operators may charge their own surcharge, which we display before you confirm.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What is the daily ATM withdrawal limit?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Default ATM withdrawal limits:</p>
+              <ul>
+                <li><strong>Per transaction:</strong> $500</li>
+                <li><strong>Per day:</strong> $1,000 (Starter/Plus), $2,500 (Premium)</li>
+                <li><strong>Per month:</strong> $5,000 (Starter), $10,000 (Plus), $25,000 (Premium)</li>
+              </ul>
+              <p>Note that the ATM itself may have lower limits. You can request a temporary limit increase in-app under <strong>Cards → Manage Limits</strong>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I withdraw money to my external bank account?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>To transfer money out to an external bank:</p>
+              <ol>
+                <li>Go to <strong>Move Money → Transfer Out</strong>.</li>
+                <li>Select an already-linked external account, or link a new one by entering routing and account numbers.</li>
+                <li>Enter the amount and choose Standard (free, 1–3 days) or Instant (fee applies).</li>
+                <li>Confirm with your PIN or biometrics.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Why was my withdrawal declined?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Common reasons for a declined withdrawal:</p>
+              <ul>
+                <li><strong>Insufficient funds</strong> — your available balance is less than the withdrawal amount</li>
+                <li><strong>Daily/monthly limit reached</strong> — you've hit your withdrawal cap</li>
+                <li><strong>Card frozen or blocked</strong> — check <strong>Cards → Manage Card</strong></li>
+                <li><strong>ATM out of cash</strong> — try a different machine</li>
+                <li><strong>Suspicious activity hold</strong> — an automated security hold was placed on your account</li>
+                <li><strong>International block</strong> — overseas spending may be blocked if not enabled in settings</li>
+              </ul>
+              <p>If the issue persists, contact support via live chat immediately.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Can I get cash back at a store instead of using an ATM?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! Cash back is available at most grocery stores, pharmacies, and big-box retailers when you select <strong>Debit</strong> as the payment method and enter your PIN. This counts toward your daily ATM withdrawal limit.</p>
+              <p>Maximum cash back per transaction: $200 (varies by merchant).</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== TRANSFERS ===== -->
+      <section class="faq-section" id="transfers">
+        <div class="section-header">
+          <div class="section-icon" style="--icon-color:#3b82f6">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+          </div>
+          <div>
+            <h2 class="section-title">Transfers</h2>
+            <p class="section-desc">Send money to anyone, anywhere</p>
+          </div>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I send money to another Contoso Bank user?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Sending money to a fellow Contoso Bank user is instant and free:</p>
+              <ol>
+                <li>Tap <strong>Move Money → Send</strong>.</li>
+                <li>Search by name, @username, phone number, or email.</li>
+                <li>Enter the amount and an optional note.</li>
+                <li>Tap <strong>Send</strong> and confirm with PIN or biometrics.</li>
+              </ol>
+              <p>The money arrives in the recipient's account within seconds, 24/7, including weekends and holidays.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I send money to a bank account (domestic wire/ACH)?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>To send an ACH or wire transfer:</p>
+              <ol>
+                <li>Go to <strong>Move Money → Bank Transfer</strong>.</li>
+                <li>Add the recipient's bank routing number and account number.</li>
+                <li>Choose ACH (free, 1–3 business days) or Wire ($15 fee, same day if before 3 PM ET).</li>
+                <li>Review and confirm.</li>
+              </ol>
+              <div class="callout callout-warning">Double-check account numbers carefully — misdirected wire transfers are difficult to reverse.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Can I schedule recurring transfers?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. When setting up a transfer, tap <strong>Make this recurring</strong> and choose your frequency:</p>
+              <ul>
+                <li>Weekly</li>
+                <li>Every two weeks</li>
+                <li>Monthly (specific date or last day)</li>
+                <li>Quarterly</li>
+                <li>Annually</li>
+              </ul>
+              <p>Manage or cancel recurring transfers anytime in <strong>Move Money → Scheduled</strong>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Can I cancel or reverse a transfer?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>The ability to cancel depends on the transfer type and status:</p>
+              <ul>
+                <li><strong>Contoso Bank-to-Contoso Bank (instant):</strong> Cannot be cancelled once sent. You can request the recipient to return the money.</li>
+                <li><strong>Scheduled future transfer:</strong> Fully cancellable before the execution date via <strong>Move Money → Scheduled</strong>.</li>
+                <li><strong>ACH (pending):</strong> Cancellable within 30 minutes of submission.</li>
+                <li><strong>Wire (pending):</strong> Cancellable before the cut-off time (3 PM ET); $25 recall fee thereafter.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I request money from someone?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>To request money:</p>
+              <ol>
+                <li>Tap <strong>Move Money → Request</strong>.</li>
+                <li>Select a contact or enter their Contoso Bank username/phone/email.</li>
+                <li>Enter the amount and add an optional description (e.g., "Dinner last night").</li>
+                <li>Tap <strong>Request</strong>. The recipient gets a push notification to approve and pay instantly.</li>
+              </ol>
+              <p>You can also use payment links — share your personal <strong>contoso-bank.io/pay/@yourname</strong> link for quick payments from anyone.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How does the bill-splitting feature work?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Contoso Bank's built-in split feature makes splitting expenses easy:</p>
+              <ol>
+                <li>Tap any transaction and select <strong>Split this</strong>.</li>
+                <li>Add Contoso Bank contacts to split with.</li>
+                <li>Choose equal split or enter custom amounts for each person.</li>
+                <li>Send requests with one tap. Everyone gets notified instantly.</li>
+              </ol>
+              <p>You can also create a group pool for ongoing shared expenses (e.g., roommates, trips).</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== LIMITS & FEES ===== -->
+      <section class="faq-section" id="limits">
+        <div class="section-header">
+          <div class="section-icon" style="--icon-color:#8b5cf6">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h2 class="section-title">Limits & Fees</h2>
+            <p class="section-desc">Understand your spending, transfer, and withdrawal caps</p>
+          </div>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What are the spending limits on my debit card?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Default debit card spending limits:</p>
+              <table class="faq-table">
+                <thead><tr><th>Limit type</th><th>Starter</th><th>Plus</th><th>Premium</th></tr></thead>
+                <tbody>
+                  <tr><td>Per transaction (POS)</td><td>$2,500</td><td>$5,000</td><td>$10,000</td></tr>
+                  <tr><td>Daily spending</td><td>$3,000</td><td>$7,500</td><td>$20,000</td></tr>
+                  <tr><td>Monthly spending</td><td>$10,000</td><td>$25,000</td><td>$75,000</td></tr>
+                  <tr><td>Daily ATM</td><td>$1,000</td><td>$1,000</td><td>$2,500</td></tr>
+                  <tr><td>Contactless per tap</td><td>$250</td><td>$500</td><td>$1,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Can I temporarily increase my spending limits?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. You can request a temporary limit increase for up to 30 days:</p>
+              <ol>
+                <li>Go to <strong>Cards → Manage Limits → Request Increase</strong>.</li>
+                <li>Enter the amount you need and a reason (e.g., travel, large purchase).</li>
+                <li>Most requests are approved instantly via our automated system.</li>
+                <li>For increases over 5× your normal limit, a brief review takes 1–2 hours.</li>
+              </ol>
+              <div class="callout callout-info">Premium members can enable "High-value mode" in settings for one-time large purchases without going through the request process.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What are the transfer limits?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Transfer limits per account tier:</p>
+              <table class="faq-table">
+                <thead><tr><th>Transfer type</th><th>Starter</th><th>Plus</th><th>Premium</th></tr></thead>
+                <tbody>
+                  <tr><td>Contoso Bank-to-Contoso Bank (daily)</td><td>$2,000</td><td>$5,000</td><td>$25,000</td></tr>
+                  <tr><td>ACH outbound (daily)</td><td>$5,000</td><td>$10,000</td><td>$50,000</td></tr>
+                  <tr><td>Wire outbound (daily)</td><td>$10,000</td><td>$25,000</td><td>$100,000</td></tr>
+                  <tr><td>International wire (daily)</td><td>$5,000</td><td>$15,000</td><td>$50,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Does Contoso Bank charge monthly fees?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Our Starter account is <strong>completely free</strong> with no monthly fees or minimum balance requirements. Plus costs $4.99/month and Premium costs $14.99/month.</p>
+              <p>Both Plus and Premium fees are waived if you:</p>
+              <ul>
+                <li>Receive at least $1,500/month in direct deposits (Plus), or $5,000/month (Premium)</li>
+                <li>Maintain an average monthly balance of $5,000 (Plus) or $25,000 (Premium)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Are there any hidden fees I should know about?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>We believe in radical transparency. Here's a complete list of fees that may apply:</p>
+              <ul>
+                <li><strong>Overdraft:</strong> $0 — we never charge overdraft fees; transactions simply decline</li>
+                <li><strong>Minimum balance:</strong> $0 — no minimums</li>
+                <li><strong>Paper statements:</strong> $2/statement if opted in (e-statements are free)</li>
+                <li><strong>Expedited physical card:</strong> $15 (standard delivery is free)</li>
+                <li><strong>Card replacement (more than 2/year):</strong> $5</li>
+                <li><strong>Outgoing domestic wire:</strong> $15</li>
+                <li><strong>Incoming domestic wire:</strong> $15</li>
+                <li><strong>Outgoing international wire:</strong> $25</li>
+                <li><strong>Dispute processing (unfounded):</strong> $0</li>
+                <li><strong>Account inactivity (24+ months):</strong> $5/month — avoidable with any activity</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I view my full fee schedule?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Your complete fee schedule is always accessible:</p>
+              <ul>
+                <li>In the app: <strong>Profile → Legal → Fee Schedule</strong></li>
+                <li>On our website: contoso-bank.io/fees</li>
+                <li>You'll also receive 30 days' advance notice via email of any fee changes</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== OVERSEAS ===== -->
+      <section class="faq-section" id="overseas">
+        <div class="section-header">
+          <div class="section-icon" style="--icon-color:#06b6d4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div>
+            <h2 class="section-title">Overseas Transactions</h2>
+            <p class="section-desc">Spend and send money globally with confidence</p>
+          </div>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Can I use my Contoso Bank card abroad?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! Your Contoso Bank Visa debit card is accepted at over <strong>84 million merchant locations</strong> in more than 200 countries and territories. Before traveling:</p>
+              <ol>
+                <li>Enable international spending: <strong>Cards → Manage Card → International Spending</strong></li>
+                <li>Optionally set the countries or regions you'll visit for enhanced security</li>
+                <li>Ensure your phone number is up to date for verification purposes</li>
+              </ol>
+              <div class="callout callout-tip">Let us know your travel dates in the app for seamless, uninterrupted spending abroad.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What foreign transaction fees apply?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Our foreign transaction fees are industry-leading:</p>
+              <table class="faq-table">
+                <thead><tr><th>Account</th><th>FX Fee</th><th>Exchange Rate</th></tr></thead>
+                <tbody>
+                  <tr><td>Starter</td><td>1.5%</td><td>Interbank rate</td></tr>
+                  <tr><td>Plus</td><td>0.5%</td><td>Interbank rate</td></tr>
+                  <tr><td>Premium</td><td>0%</td><td>Interbank rate</td></tr>
+                </tbody>
+              </table>
+              <p>Contoso Bank always uses the <strong>real mid-market interbank rate</strong> — no hidden markup is added to the exchange rate itself.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I send an international money transfer?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>To send money internationally:</p>
+              <ol>
+                <li>Go to <strong>Move Money → International Transfer</strong>.</li>
+                <li>Select the destination country and currency.</li>
+                <li>Enter the recipient's name, IBAN (for SEPA/EU) or account number + SWIFT/BIC code.</li>
+                <li>Review the real-time exchange rate and total fees before confirming.</li>
+                <li>Large transfers may require additional documentation per regulatory requirements.</li>
+              </ol>
+              <p>Transfers to 35+ countries arrive within <strong>1 business day</strong>. Standard to all other countries is 2–5 business days.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What is dynamic currency conversion (DCC) and should I use it?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Dynamic Currency Conversion (DCC) is when a foreign merchant or ATM offers to charge you in your home currency instead of the local one. <strong>We strongly recommend declining DCC</strong> every time, because:</p>
+              <ul>
+                <li>Merchants apply their own (often very poor) exchange rate</li>
+                <li>DCC typically adds a 3–7% surcharge compared to the interbank rate</li>
+                <li>Contoso Bank always applies the interbank rate — letting us handle the conversion saves you money</li>
+              </ul>
+              <div class="callout callout-warning">Always choose to be charged in the local currency. Contoso Bank will handle the conversion.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Are there overseas ATM fees?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Overseas ATM fees depend on your account tier:</p>
+              <ul>
+                <li><strong>Starter:</strong> $3.00/withdrawal + 1.5% FX fee</li>
+                <li><strong>Plus:</strong> First 2 international withdrawals/month free; then $3.00 + 0.5% FX fee</li>
+                <li><strong>Premium:</strong> First 10 international withdrawals/month free; then $3.00 (FX fee waived)</li>
+              </ul>
+              <p>Note: Local ATM operators in some countries may add their own fees, which are disclosed before you proceed.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What should I do if my card is blocked while traveling?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>If your card is declined overseas:</p>
+              <ol>
+                <li>Check the app — there may be an alert explaining the reason (suspicious transaction, limit reached, country not enabled, etc.).</li>
+                <li>Go to <strong>Cards → Manage Card → International Spending</strong> and verify the country is enabled.</li>
+                <li>If the card appears frozen, tap <strong>Unfreeze Card</strong>.</li>
+                <li>Contact live support via <strong>in-app chat</strong> — our international team is available 24/7.</li>
+              </ol>
+              <div class="callout callout-tip">Save our emergency number +1-800-NEO-HELP in your phone before you travel.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Does Contoso Bank support multi-currency accounts?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Plus and Premium members can hold balances in up to <strong>15 currencies</strong> simultaneously in their Contoso Bank wallet. Supported currencies include USD, EUR, GBP, JPY, AUD, CAD, CHF, SGD, HKD, THB, MYR, INR, KRW, BRL, and MXN.</p>
+              <p>To add a currency wallet:</p>
+              <ol>
+                <li>Go to <strong>Cards → Currency Wallets → Add Wallet</strong>.</li>
+                <li>Select your desired currency.</li>
+                <li>Fund it from your main balance at the real interbank rate.</li>
+              </ol>
+              <p>When spending abroad, Contoso Bank automatically uses the matching currency wallet if available — eliminating FX fees entirely for those transactions.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== SECURITY ===== -->
+      <section class="faq-section" id="security">
+        <div class="section-header">
+          <div class="section-icon" style="--icon-color:#ef4444">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div>
+            <h2 class="section-title">Security</h2>
+            <p class="section-desc">Keeping your money and data safe</p>
+          </div>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How does Contoso Bank protect my money?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Your money and data are protected by multiple layers of security:</p>
+              <ul>
+                <li><strong>FDIC Insurance:</strong> Deposits insured up to $250,000 per depositor through our partner bank</li>
+                <li><strong>256-bit AES encryption:</strong> All data encrypted at rest and in transit</li>
+                <li><strong>Real-time fraud monitoring:</strong> AI models review every transaction 24/7</li>
+                <li><strong>Zero-liability fraud protection:</strong> You're not responsible for unauthorized transactions reported promptly</li>
+                <li><strong>Biometric authentication:</strong> Face ID / fingerprint required for sensitive actions</li>
+                <li><strong>3D Secure:</strong> All online card transactions use 3D Secure 2.0 verification</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What should I do if I think my account has been compromised?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Act immediately if you suspect unauthorized access:</p>
+              <ol>
+                <li><strong>Freeze your card immediately</strong> via <strong>Cards → Freeze Card</strong> (takes effect in seconds).</li>
+                <li><strong>Change your password</strong> via <strong>Profile → Security → Change Password</strong>.</li>
+                <li><strong>Revoke all active sessions</strong> under <strong>Profile → Security → Active Sessions → Sign out all devices</strong>.</li>
+                <li><strong>Contact support immediately</strong> via in-app chat or +1-800-NEO-HELP.</li>
+                <li>File a dispute for any unauthorized transactions you identify.</li>
+              </ol>
+              <div class="callout callout-warning">Never share your PIN, password, or one-time codes with anyone — including people claiming to be Contoso Bank staff.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I enable two-factor authentication (2FA)?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>2FA is automatically enabled for all Contoso Bank accounts. You can choose your second factor:</p>
+              <ul>
+                <li><strong>SMS OTP</strong> — 6-digit code sent to your registered phone number</li>
+                <li><strong>Authenticator app</strong> — TOTP via Google Authenticator, Authy, or compatible apps</li>
+                <li><strong>Hardware security key</strong> — FIDO2/WebAuthn support (recommended for highest security)</li>
+              </ul>
+              <p>To upgrade your 2FA method: <strong>Profile → Security → Two-Factor Authentication</strong>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I report a fraudulent transaction?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>To dispute a transaction:</p>
+              <ol>
+                <li>Tap the transaction in your transaction history.</li>
+                <li>Scroll down and tap <strong>Report a Problem</strong>.</li>
+                <li>Select the reason: <em>I didn't make this</em>, <em>Wrong amount charged</em>, <em>Item not received</em>, etc.</li>
+                <li>Add any supporting details and submit.</li>
+              </ol>
+              <p>We'll issue a <strong>provisional credit</strong> within 10 business days while we investigate. Most disputes are resolved within 5 business days.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Can I lock and unlock my card instantly?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! Card freeze is instant and does not affect recurring payments or direct debits. To freeze or unfreeze your card:</p>
+              <p>Go to <strong>Cards</strong> and toggle the <strong>Freeze Card</strong> switch. The change takes effect immediately.</p>
+              <p>You can also granularly control what your card can be used for:</p>
+              <ul>
+                <li>Online transactions</li>
+                <li>Contactless payments</li>
+                <li>ATM withdrawals</li>
+                <li>International transactions</li>
+                <li>Gambling/adult merchant categories (can be blocked)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How does Contoso Bank protect me from phishing and scams?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>We actively protect you in several ways:</p>
+              <ul>
+                <li><strong>Scam warnings:</strong> The app flags transfers to new recipients with "first transfer" alerts</li>
+                <li><strong>Merchant verification:</strong> We display merchant names, logos, and locations for every transaction</li>
+                <li><strong>No-callback policy:</strong> We will <em>never</em> call you and ask for your full card number, PIN, or one-time password</li>
+                <li><strong>Secure messaging:</strong> All legitimate Contoso Bank communications come through the in-app message center — not external SMS</li>
+              </ul>
+              <p>If you receive a suspicious call, email, or message claiming to be from Contoso Bank, forward it to <strong>security@contoso-bank.io</strong>.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== ACCOUNT MANAGEMENT ===== -->
+      <section class="faq-section" id="account">
+        <div class="section-header">
+          <div class="section-icon" style="--icon-color:#f97316">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div>
+            <h2 class="section-title">Account Management</h2>
+            <p class="section-desc">Manage your profile, preferences, and account settings</p>
+          </div>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I update my personal information?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>To update your information, go to <strong>Profile → Personal Info</strong>:</p>
+              <ul>
+                <li><strong>Name:</strong> Requires government ID upload for legal name changes</li>
+                <li><strong>Email address:</strong> Instant update with OTP verification on both old and new email</li>
+                <li><strong>Phone number:</strong> Immediate with OTP; a 24-hour security lock follows</li>
+                <li><strong>Home address:</strong> Update with proof-of-address document upload</li>
+                <li><strong>Profile picture:</strong> Change anytime with no verification required</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I upgrade or downgrade my account tier?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>You can change your plan at any time:</p>
+              <ul>
+                <li><strong>To upgrade:</strong> <strong>Profile → Plan → Upgrade</strong> — new benefits take effect immediately; billing is prorated.</li>
+                <li><strong>To downgrade:</strong> <strong>Profile → Plan → Downgrade</strong> — the change takes effect at the end of your current billing cycle; you keep current benefits until then.</li>
+              </ul>
+              <p>If you hold currency wallets or features exclusive to your current plan, we'll help you migrate them before the downgrade takes effect.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I close my Contoso Bank account?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>We're sorry to see you go. To close your account:</p>
+              <ol>
+                <li>Ensure your balance is $0.00 or transfer remaining funds to an external account.</li>
+                <li>Cancel any active subscriptions or recurring payments linked to your card.</li>
+                <li>Go to <strong>Profile → Account → Close Account</strong>.</li>
+                <li>Complete the identity verification step.</li>
+                <li>Your account will be closed within 5 business days.</li>
+              </ol>
+              <p>You'll receive a final statement via email. We retain records for 7 years as required by law, though your data will not be used for marketing.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I download my bank statements?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>To download statements:</p>
+              <ol>
+                <li>Go to <strong>Profile → Statements</strong>.</li>
+                <li>Select the account and the month/year range.</li>
+                <li>Choose format: PDF (official statement) or CSV (spreadsheet-friendly).</li>
+                <li>Tap <strong>Download</strong>.</li>
+              </ol>
+              <p>Official statements include a digital signature for verification. You can also share directly with institutions (e.g., for visa applications) via a one-time secure link.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              How do I link external bank accounts?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>You can link external accounts by:</p>
+              <ul>
+                <li><strong>Instant link (Plaid):</strong> Search for your bank and log in securely via Plaid — supported by 11,000+ banks</li>
+                <li><strong>Manual entry:</strong> Enter routing and account numbers; we'll make two micro-deposits (under $1.00) within 1–2 days to verify</li>
+              </ul>
+              <p>Each Contoso Bank account supports up to <strong>10 linked external accounts</strong>. Manage them under <strong>Profile → Linked Accounts</strong>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What is Contoso Bank's data privacy policy?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Contoso Bank takes your privacy seriously:</p>
+              <ul>
+                <li>We <strong>never sell your personal data</strong> to third parties for marketing</li>
+                <li>You can download all your personal data at any time via <strong>Profile → Privacy → Download My Data</strong></li>
+                <li>You can request full data deletion when closing your account (subject to regulatory retention requirements)</li>
+                <li>We comply with GDPR (EU), CCPA (California), and applicable local data protection laws</li>
+              </ul>
+              <p>Read our full Privacy Policy at <strong>contoso-bank.io/privacy</strong>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Can I use Contoso Bank on multiple devices?
+              <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. You can be logged in on up to <strong>5 devices simultaneously</strong>. Each new device login sends a push notification to all active devices. To manage your devices:</p>
+              <p>Go to <strong>Profile → Security → Active Sessions</strong>. You can see the device name, location, and last active time, and sign out any device remotely.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+    </div><!-- end faq-content -->
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="url(#footerLogoGrad)"/>
+            <path d="M8 22L16 10L24 22H8Z" fill="white" opacity="0.9"/>
+            <circle cx="16" cy="18" r="3" fill="white"/>
+            <defs>
+              <linearGradient id="footerLogoGrad" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="logo-text">Contoso Bank</span>
+        </div>
+        <p class="footer-tagline">Banking reimagined for the digital age.</p>
+        <p class="footer-fdic">Contoso Bank is not a bank. Banking services are provided by FirstTrust Bank, Member FDIC.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#">Personal Banking</a>
+          <a href="#">Business Banking</a>
+          <a href="#">Cards</a>
+          <a href="#">Savings</a>
+          <a href="#">Investments</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="FAQ.html">FAQ</a>
+          <a href="api-docs.html">API Docs</a>
+          <a href="#">Live Chat</a>
+          <a href="#">Status Page</a>
+          <a href="#">Community</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#">Press</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Fee Schedule</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 Contoso Bank Technologies Inc. All rights reserved.</p>
+      <div class="footer-badges">
+        <span class="badge">🔒 256-bit SSL</span>
+        <span class="badge">🏦 FDIC Insured</span>
+        <span class="badge">⚡ Instant Transfers</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+

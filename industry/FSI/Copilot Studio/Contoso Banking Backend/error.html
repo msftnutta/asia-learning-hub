@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contoso Bank — Something Went Wrong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0b0f1a;
+      --bg-card:    #111827;
+      --bg-card-2:  #1a2236;
+      --border:     rgba(255,255,255,0.08);
+      --text:       #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim:   #64748b;
+      --accent:     #6366f1;
+      --accent-2:   #8b5cf6;
+      --red:        #ef4444;
+      --yellow:     #f59e0b;
+      --green:      #10b981;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ---- Background orbs ---- */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.25;
+      animation: float 10s ease-in-out infinite;
+    }
+    .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, #ef4444, transparent 70%); top: -120px; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+    .orb-2 { width: 350px; height: 350px; background: radial-gradient(circle, #8b5cf6, transparent 70%); bottom: 0; right: 5%; animation-delay: -4s; }
+    .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, #6366f1, transparent 70%); bottom: 10%; left: 5%; animation-delay: -7s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%       { transform: translateY(-28px) scale(1.05); }
+    }
+
+    /* ---- Layout ---- */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- Header ---- */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 64px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(11,15,26,0.85);
+      backdrop-filter: blur(20px);
+      flex-shrink: 0;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-text { font-size: 1.2rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+
+    /* ---- Main content ---- */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    /* Error icon */
+    .error-icon-wrap {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 32px;
+    }
+    .error-icon-bg {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(239,68,68,0.1);
+      border: 1.5px solid rgba(239,68,68,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: iconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes iconPop {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .error-icon-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(239,68,68,0.15);
+      animation: ringPulse 3s ease-in-out infinite;
+    }
+    .error-icon-ring-2 {
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      border: 1px solid rgba(239,68,68,0.08);
+      animation: ringPulse 3s ease-in-out 0.6s infinite;
+    }
+    @keyframes ringPulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.08); opacity: 0.5; }
+    }
+
+    /* Error code badge */
+    .error-code-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 16px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 99px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #fca5a5;
+      margin-bottom: 20px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      animation: fadeUp 0.4s 0.15s ease both;
+    }
+    .error-code-dot { width: 6px; height: 6px; border-radius: 50%; background: #ef4444; }
+
+    /* Heading */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      animation: fadeUp 0.4s 0.2s ease both;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #fca5a5 0%, #f87171 50%, #ef4444 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .error-message {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 36px;
+      line-height: 1.75;
+      animation: fadeUp 0.4s 0.25s ease both;
+    }
+
+    /* Detail card */
+    .error-detail-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto 36px;
+      text-align: left;
+      animation: fadeUp 0.4s 0.3s ease both;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    .detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .detail-row:first-child { padding-top: 0; }
+    .detail-label { color: var(--text-dim); }
+    .detail-value { color: var(--text); font-weight: 500; font-family: 'Courier New', monospace; font-size: 0.8125rem; }
+    .detail-value.red { color: #fca5a5; }
+
+    /* Action buttons */
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.4s 0.35s ease both;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--accent-2);
+      box-shadow: 0 0 24px rgba(99,102,241,0.35);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1.5px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-card-2);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.16);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover { color: var(--text-muted); border-color: rgba(255,255,255,0.14); }
+
+    /* Common errors list */
+    .shortcuts {
+      max-width: 480px;
+      width: 100%;
+      margin: 48px auto 0;
+      text-align: left;
+      animation: fadeUp 0.4s 0.4s ease both;
+    }
+    .shortcuts-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    .shortcut-list { display: flex; flex-direction: column; gap: 6px; }
+    .shortcut-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .shortcut-item:hover {
+      background: var(--bg-card-2);
+      border-color: rgba(255,255,255,0.14);
+      color: var(--text);
+    }
+    .shortcut-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .shortcut-arrow {
+      margin-left: auto;
+      color: var(--text-dim);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    footer .sep { margin: 0 10px; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      header { padding: 0 20px; }
+      .actions { flex-direction: column; align-items: stretch; }
+      .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-layer">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="page">
+
+    <!-- Header -->
+    <header>
+      <a href="FAQ.html" class="logo">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="url(#hg)"/>
+          <path d="M8 22L16 10L24 22H8Z" fill="white" opacity="0.9"/>
+          <circle cx="16" cy="18" r="3" fill="white"/>
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">Contoso Bank</span>
+      </a>
+      <div class="header-status">
+        <div class="dot"></div>
+        All systems operational
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main>
+
+      <!-- Icon -->
+      <div class="error-icon-wrap">
+        <div class="error-icon-ring"></div>
+        <div class="error-icon-ring-2"></div>
+        <div class="error-icon-bg">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Badge -->
+      <div class="error-code-badge">
+        <div class="error-code-dot"></div>
+        <span id="errorCodeLabel">Error Encountered</span>
+      </div>
+
+      <!-- Heading -->
+      <h1>Oops! <span class="gradient-text">Something<br>went wrong.</span></h1>
+
+      <p class="error-message" id="errorDescription">
+        We couldn't load the page you were looking for. This may be a temporary issue — please try again or return to the Help Center.
+      </p>
+
+      <!-- Detail card -->
+      <div class="error-detail-card">
+        <div class="detail-row">
+          <span class="detail-label">Error code</span>
+          <span class="detail-value red" id="errorCode">ERR_UNKNOWN</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Page requested</span>
+          <span class="detail-value" id="errorPath">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Timestamp</span>
+          <span class="detail-value" id="errorTime">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Reference ID</span>
+          <span class="detail-value" id="errorRef">—</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <a href="FAQ.html" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Back to Help Center
+        </a>
+        <button class="btn btn-secondary" onclick="history.back()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Go Back
+        </button>
+        <button class="btn btn-ghost" onclick="location.reload()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Retry
+        </button>
+      </div>
+
+      <!-- Shortcut links -->
+      <div class="shortcuts">
+        <p class="shortcuts-title">You might be looking for</p>
+        <div class="shortcut-list">
+
+          <a href="index.html#getting-started" class="shortcut-item">
+            <div class="shortcut-icon" style="background:rgba(99,102,241,0.12)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            Getting Started
+            <svg class="shortcut-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <a href="index.html#transfers" class="shortcut-item">
+            <div class="shortcut-icon" style="background:rgba(59,130,246,0.12)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+            </div>
+            Transfers
+            <svg class="shortcut-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <a href="index.html#security" class="shortcut-item">
+            <div class="shortcut-icon" style="background:rgba(239,68,68,0.1)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            Security & Fraud
+            <svg class="shortcut-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+          <a href="index.html#account" class="shortcut-item">
+            <div class="shortcut-icon" style="background:rgba(249,115,22,0.1)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            Account Management
+            <svg class="shortcut-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        Need immediate help?
+        <a href="#">Live Chat</a>
+        <span class="sep">·</span>
+        <a href="#">Call Support</a>
+        <span class="sep">·</span>
+        <a href="FAQ.html">Help Center</a>
+        <span class="sep">·</span>
+        © 2026 Contoso Bank
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      // --- Resolve error context from URL params or referrer ---
+      const params = new URLSearchParams(window.location.search);
+
+      // Error code mapping
+      const errorMap = {
+        '404': { code: 'ERR_NOT_FOUND',      label: '404 — Page Not Found',      desc: 'The page you\'re looking for doesn\'t exist or has been moved. Please check the URL or use the links below.' },
+        '403': { code: 'ERR_FORBIDDEN',      label: '403 — Access Denied',        desc: 'You don\'t have permission to view this page. Please log in or contact support if you believe this is a mistake.' },
+        '500': { code: 'ERR_SERVER',         label: '500 — Server Error',         desc: 'Something went wrong on our end. Our engineering team has been notified. Please try again in a few minutes.' },
+        '503': { code: 'ERR_UNAVAILABLE',    label: '503 — Service Unavailable',  desc: 'Contoso Bank is temporarily undergoing maintenance. We\'ll be back shortly. Check our status page for updates.' },
+        '408': { code: 'ERR_TIMEOUT',        label: '408 — Request Timeout',      desc: 'The page took too long to load. Please check your internet connection and try again.' },
+        '429': { code: 'ERR_RATE_LIMITED',   label: '429 — Too Many Requests',    desc: 'You\'ve made too many requests. Please wait a moment before trying again.' },
+        'network': { code: 'ERR_NETWORK',   label: 'Network Error',              desc: 'Unable to reach Contoso Bank servers. Please check your internet connection and try again.' },
+      };
+
+      const statusParam = params.get('status') || params.get('code') || 'unknown';
+      const info = errorMap[statusParam] || {
+        code: 'ERR_UNKNOWN',
+        label: 'Unexpected Error',
+        desc: 'An unexpected error occurred while loading the page. Please try again or contact our support team if the problem persists.'
+      };
+
+      // Populate fields
+      document.getElementById('errorCode').textContent        = info.code;
+      document.getElementById('errorCodeLabel').textContent   = info.label;
+      document.getElementById('errorDescription').textContent = info.desc;
+      document.getElementById('errorPath').textContent        = params.get('from') || document.referrer || window.location.pathname;
+      document.getElementById('errorTime').textContent        = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+      document.getElementById('errorRef').textContent         = 'REF-' + Math.random().toString(36).toUpperCase().slice(2, 10);
+
+      // Tint the icon & badge for specific codes
+      const is5xx = ['500', '503'].includes(statusParam);
+      if (statusParam === '404') {
+        // Keep red
+      } else if (statusParam === '403') {
+        document.querySelector('.error-icon-bg').style.background = 'rgba(245,158,11,0.1)';
+        document.querySelector('.error-icon-bg').style.borderColor = 'rgba(245,158,11,0.25)';
+        document.querySelector('.error-icon-bg svg').setAttribute('stroke', '#f59e0b');
+        document.querySelector('.error-code-badge').style.background = 'rgba(245,158,11,0.1)';
+        document.querySelector('.error-code-badge').style.borderColor = 'rgba(245,158,11,0.25)';
+        document.querySelector('.error-code-badge').style.color = '#fcd34d';
+        document.querySelector('.error-code-dot').style.background = '#f59e0b';
+      }
+    })();
+  </script>
+</body>
+</html>
+

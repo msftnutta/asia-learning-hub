@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contoso Bank — Exclusive Offers & Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===================================================
+       Contoso Bank Campaign Page — Inline Styles
+       Accent palette: Emerald/Gold/Indigo (fresh vs. FAQ's pure indigo/purple)
+    =================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #080d14;
+      --bg-card:      #0f1825;
+      --bg-card-2:    #162030;
+      --bg-card-3:    #1c2a3e;
+      --border:       rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.15);
+      --text:         #f0f6ff;
+      --text-muted:   #8eaac8;
+      --text-dim:     #4e6a87;
+      --gold:         #f59e0b;
+      --gold-light:   #fcd34d;
+      --gold-glow:    rgba(245,158,11,0.22);
+      --emerald:      #10b981;
+      --emerald-light:#6ee7b7;
+      --emerald-glow: rgba(16,185,129,0.2);
+      --indigo:       #6366f1;
+      --indigo-2:     #818cf8;
+      --rose:         #f43f5e;
+      --sky:          #0ea5e9;
+      --radius-sm:    8px;
+      --radius:       14px;
+      --radius-lg:    22px;
+      --radius-xl:    32px;
+      --shadow:       0 4px 40px rgba(0,0,0,0.5);
+      --shadow-gold:  0 8px 40px rgba(245,158,11,0.18);
+      --font:         'Inter', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ---- Typography helpers ---- */
+    .gradient-gold {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-emerald {
+      background: linear-gradient(135deg, var(--emerald-light) 0%, var(--emerald) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-cool {
+      background: linear-gradient(135deg, #a5b4fc 0%, var(--indigo) 50%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ---- Scrollbar ---- */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-card); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-card-3); border-radius: 99px; }
+
+    /* ====================================================
+       HEADER
+    ==================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,13,20,0.82);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+    .nav-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #000;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-left: 2px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--text);
+      background: var(--bg-card-2);
+    }
+    .btn-nav {
+      margin-left: 8px;
+      padding: 9px 22px;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #000;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .btn-nav:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+    /* hamburger (mobile) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-muted);
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .hamburger:hover span { background: var(--text); }
+
+    /* ====================================================
+       HERO
+    ==================================================== */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 32px 90px;
+      text-align: center;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+    }
+    .orb-gold {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(245,158,11,0.18), transparent 65%);
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      animation: floatOrb 12s ease-in-out infinite;
+    }
+    .orb-emerald {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(16,185,129,0.14), transparent 65%);
+      bottom: -100px; left: 5%;
+      animation: floatOrb 14s ease-in-out 3s infinite;
+    }
+    .orb-indigo {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(99,102,241,0.14), transparent 65%);
+      bottom: -80px; right: 5%;
+      animation: floatOrb 11s ease-in-out 6s infinite;
+    }
+    @keyframes floatOrb {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%       { transform: translateY(-30px) scale(1.04); }
+    }
+    .orb-gold { animation-name: floatOrbCenter; }
+    @keyframes floatOrbCenter {
+      0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+      50%       { transform: translateX(-50%) translateY(-30px) scale(1.04); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.28);
+      border-radius: 99px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+      animation: fadeUp 0.5s ease both;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px var(--gold);
+      animation: pulseDot 2s ease-in-out infinite;
+    }
+    @keyframes pulseDot {
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%    { opacity:0.5; transform:scale(1.5); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      margin-bottom: 24px;
+      animation: fadeUp 0.5s 0.1s ease both;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 44px;
+      animation: fadeUp 0.5s 0.2s ease both;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 30px;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #000;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-gold);
+    }
+    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 12px 48px rgba(245,158,11,0.3); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 30px;
+      background: var(--bg-card-2);
+      color: var(--text);
+      border: 1.5px solid var(--border-hover);
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { background: var(--bg-card-3); transform: translateY(-2px); }
+
+    /* Trust bar */
+    .trust-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.5s 0.4s ease both;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .trust-item svg { color: var(--emerald); flex-shrink: 0; }
+    .trust-divider { width: 1px; height: 20px; background: var(--border); }
+
+    /* ====================================================
+       SECTION GENERIC
+    ==================================================== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ====================================================
+       PRODUCT CARDS — MAIN OFFERS
+    ==================================================== */
+    .products-section {
+      padding: 80px 0 60px;
+    }
+    .products-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .products-header .section-label { justify-content: center; }
+    .products-header .section-label::before { display: none; }
+    .products-header .section-desc { margin: 0 auto; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px 32px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+    .product-card.featured {
+      border-color: rgba(245,158,11,0.4);
+      box-shadow: 0 0 0 1px rgba(245,158,11,0.12) inset;
+    }
+    .product-card.featured:hover {
+      border-color: rgba(245,158,11,0.7);
+      box-shadow: var(--shadow-gold);
+    }
+    .product-card.card-emerald { border-color: rgba(16,185,129,0.25); }
+    .product-card.card-emerald:hover { border-color: rgba(16,185,129,0.55); box-shadow: 0 8px 40px rgba(16,185,129,0.12); }
+    .product-card.card-indigo { border-color: rgba(99,102,241,0.25); }
+    .product-card.card-indigo:hover { border-color: rgba(99,102,241,0.55); box-shadow: 0 8px 40px rgba(99,102,241,0.12); }
+    .product-card.card-rose { border-color: rgba(244,63,94,0.25); }
+    .product-card.card-rose:hover { border-color: rgba(244,63,94,0.55); box-shadow: 0 8px 40px rgba(244,63,94,0.12); }
+    .product-card.card-sky { border-color: rgba(14,165,233,0.25); }
+    .product-card.card-sky:hover { border-color: rgba(14,165,233,0.55); box-shadow: 0 8px 40px rgba(14,165,233,0.12); }
+
+    /* Card glow blob */
+    .card-glow {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      filter: blur(50px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .glow-gold  { background: var(--gold); }
+    .glow-emerald { background: var(--emerald); }
+    .glow-indigo { background: var(--indigo); }
+    .glow-rose { background: var(--rose); }
+    .glow-sky  { background: var(--sky); }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+    .badge-gold   { background: rgba(245,158,11,0.15); color: var(--gold-light); border: 1px solid rgba(245,158,11,0.3); }
+    .badge-emerald{ background: rgba(16,185,129,0.12); color: var(--emerald-light); border: 1px solid rgba(16,185,129,0.3); }
+    .badge-indigo { background: rgba(99,102,241,0.12); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+    .badge-rose   { background: rgba(244,63,94,0.12); color: #fda4af; border: 1px solid rgba(244,63,94,0.3); }
+    .badge-sky    { background: rgba(14,165,233,0.12); color: #7dd3fc; border: 1px solid rgba(14,165,233,0.3); }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .icon-gold    { background: rgba(245,158,11,0.14); color: var(--gold); }
+    .icon-emerald { background: rgba(16,185,129,0.14); color: var(--emerald); }
+    .icon-indigo  { background: rgba(99,102,241,0.14); color: var(--indigo-2); }
+    .icon-rose    { background: rgba(244,63,94,0.14); color: var(--rose); }
+    .icon-sky     { background: rgba(14,165,233,0.14); color: var(--sky); }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 0.9125rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .card-rate {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .rate-num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .rate-unit {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .rate-label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .card-perks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .card-perks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .perk-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .check-gold    { background: rgba(245,158,11,0.15); color: var(--gold); }
+    .check-emerald { background: rgba(16,185,129,0.15); color: var(--emerald); }
+    .check-indigo  { background: rgba(99,102,241,0.15); color: var(--indigo-2); }
+    .check-rose    { background: rgba(244,63,94,0.15); color: var(--rose); }
+    .check-sky     { background: rgba(14,165,233,0.15); color: var(--sky); }
+
+    .card-cta {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .cta-gold   { background: linear-gradient(135deg, var(--gold), #d97706); color: #000; }
+    .cta-emerald{ background: linear-gradient(135deg, var(--emerald), #059669); color: #000; }
+    .cta-indigo { background: linear-gradient(135deg, #818cf8, var(--indigo)); color: #fff; }
+    .cta-rose   { background: linear-gradient(135deg, #fb7185, var(--rose)); color: #fff; }
+    .cta-sky    { background: linear-gradient(135deg, #38bdf8, var(--sky)); color: #000; }
+    .card-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+    /* ====================================================
+       RATES COMPARISON TABLE
+    ==================================================== */
+    .rates-section {
+      padding: 72px 0;
+      border-top: 1px solid var(--border);
+    }
+    .rates-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .rates-table-wrap {
+      overflow-x: auto;
+    }
+    .rates-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .rates-table thead tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .rates-table th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .rates-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .rates-table tr:last-child td { border-bottom: none; }
+    .rates-table tr:hover td { background: var(--bg-card-2); }
+    .rates-table .highlight td { background: rgba(245,158,11,0.06); }
+    .rates-table .highlight td:first-child { border-left: 2px solid var(--gold); }
+    .td-product { color: var(--text); font-weight: 600; }
+    .td-rate { font-weight: 700; }
+    .td-rate.gold { color: var(--gold); }
+    .td-rate.emerald { color: var(--emerald); }
+    .td-rate.indigo { color: var(--indigo-2); }
+    .td-rate.rose { color: var(--rose); }
+    .td-rate.sky { color: var(--sky); }
+    .td-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 99px;
+    }
+    .bg-gold-badge { background: rgba(245,158,11,0.15); color: var(--gold-light); }
+    .bg-emerald-badge { background: rgba(16,185,129,0.15); color: var(--emerald-light); }
+
+    /* ====================================================
+       STEPS SECTION
+    ==================================================== */
+    .steps-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .steps-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .steps-header .section-label { justify-content: center; }
+    .steps-header .section-label::before { display: none; }
+    .steps-header .section-desc { margin: 0 auto; }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .step-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .step-item:hover { border-color: rgba(245,158,11,0.3); transform: translateY(-4px); }
+
+    .step-num {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(245,158,11,0.1);
+      border: 1.5px solid rgba(245,158,11,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin: 0 auto 18px;
+    }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ====================================================
+       TESTIMONIALS
+    ==================================================== */
+    .testimonials-section {
+      padding: 72px 0;
+      border-top: 1px solid var(--border);
+    }
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .testimonials-header .section-label { justify-content: center; }
+    .testimonials-header .section-label::before { display: none; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .testimonial-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+    .stars {
+      display: flex;
+      gap: 3px;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .testimonial-text {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .author-name { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .author-role { font-size: 0.8rem; color: var(--text-dim); }
+
+    /* ====================================================
+       FAQ MINI SECTION
+    ==================================================== */
+    .faq-section {
+      padding: 72px 0;
+      border-top: 1px solid var(--border);
+    }
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item.open { border-color: rgba(245,158,11,0.3); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      text-align: left;
+      font-family: var(--font);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .faq-q:hover { background: var(--bg-card-2); }
+    .faq-chevron {
+      flex-shrink: 0;
+      color: var(--text-dim);
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--gold); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .faq-a-inner {
+      padding: 0 20px 18px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    /* ====================================================
+       CTA BANNER
+    ==================================================== */
+    .cta-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .cta-banner {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: var(--radius-xl);
+      padding: 64px 48px;
+      text-align: center;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(245,158,11,0.1), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .cta-sub {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 36px;
+    }
+    .cta-btn-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-note {
+      margin-top: 20px;
+      font-size: 0.825rem;
+      color: var(--text-dim);
+    }
+
+    /* ====================================================
+       FOOTER
+    ==================================================== */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand p {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 240px;
+    }
+    .footer-col-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+    }
+    .footer-bottom a { color: var(--text-dim); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--text-muted); }
+    .footer-sep { margin: 0 8px; }
+
+    /* ====================================================
+       RESPONSIVE
+    ==================================================== */
+    @media (max-width: 900px) {
+      .rates-layout { grid-template-columns: 1fr; gap: 40px; }
+      .faq-layout { grid-template-columns: 1fr; gap: 40px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 72px 20px 60px; }
+      .container { padding: 0 20px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .steps-grid::before { display: none; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .cta-banner { padding: 40px 24px; }
+      .nav-bar { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <nav class="nav-bar">
+      <a href="../FAQ.html" class="nav-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
+          <path d="M8 22L16 10L24 22H8Z" fill="white" opacity="0.9"/>
+          <circle cx="16" cy="18" r="3" fill="white"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0%" stop-color="#f59e0b"/>
+              <stop offset="100%" stop-color="#10b981"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">Contoso Bank</span>
+        <span class="nav-badge">New Offers</span>
+      </a>
+      <div class="nav-links">
+        <a href="../FAQ.html" class="nav-link">Help Center</a>
+        <a href="#products" class="nav-link active">Products</a>
+        <a href="#rates" class="nav-link">Rates</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#apply" class="btn-nav">Apply Now</a>
+      </div>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb orb-gold"></div>
+      <div class="hero-orb orb-emerald"></div>
+      <div class="hero-orb orb-indigo"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        Spring 2026 — Limited-time promotions now live
+      </div>
+      <h1 class="hero-title">
+        Grow your money<br>
+        <span class="gradient-gold">faster than ever.</span>
+      </h1>
+      <p class="hero-sub">
+        Exclusive rates on high-yield deposits, government bonds, mortgage financing,
+        and flexible cash loans — all in one place, fully digital.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#apply" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Explore Offers
+        </a>
+        <a href="#rates" class="btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-4 4"/></svg>
+          View All Rates
+        </a>
+      </div>
+      <div class="trust-bar">
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          FDIC Insured
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          No hidden fees
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Open in 5 minutes
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Bank-grade security
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUCTS ===== -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="products-header">
+        <div class="section-label">Our Exclusive Products</div>
+        <h2 class="section-title">The right product for <span class="gradient-gold">every goal</span></h2>
+        <p class="section-desc">Handpicked financial products with industry-leading rates and zero paperwork.</p>
+      </div>
+
+      <div class="products-grid">
+
+        <!-- High-Yield Deposit -->
+        <div class="product-card featured">
+          <div class="card-glow glow-gold"></div>
+          <div class="card-badge badge-gold">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Best Seller
+          </div>
+          <div class="card-icon icon-gold">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="card-title">High-Yield Deposit</div>
+          <div class="card-desc">Park your savings and earn more. Our fixed-term deposits deliver rates the big banks can't match.</div>
+          <div class="card-rate">
+            <span class="rate-num gradient-gold">6.8%</span>
+            <span class="rate-unit">p.a.</span>
+          </div>
+          <div class="rate-label">12-month fixed term · promo ends Apr 30</div>
+          <ul class="card-perks">
+            <li>
+              <span class="perk-check check-gold"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Guaranteed returns — zero market risk
+            </li>
+            <li>
+              <span class="perk-check check-gold"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Minimum deposit just $500
+            </li>
+            <li>
+              <span class="perk-check check-gold"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Auto-renew option with rate-lock
+            </li>
+            <li>
+              <span class="perk-check check-gold"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Monthly or at-maturity interest payout
+            </li>
+          </ul>
+          <a href="#apply" class="card-cta cta-gold">Open Deposit Account →</a>
+        </div>
+
+        <!-- Bond Investment -->
+        <div class="product-card card-emerald">
+          <div class="card-glow glow-emerald"></div>
+          <div class="card-badge badge-emerald">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Government Backed
+          </div>
+          <div class="card-icon icon-emerald">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-4 0v2M8 7V5a2 2 0 00-4 0v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          </div>
+          <div class="card-title">Bond Investment</div>
+          <div class="card-desc">Invest in government and corporate bonds directly from the app. Stable, predictable income for the long term.</div>
+          <div class="card-rate">
+            <span class="rate-num gradient-emerald">5.2%</span>
+            <span class="rate-unit">avg yield</span>
+          </div>
+          <div class="rate-label">3–10 year maturity options available</div>
+          <ul class="card-perks">
+            <li>
+              <span class="perk-check check-emerald"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Government & investment-grade corporate bonds
+            </li>
+            <li>
+              <span class="perk-check check-emerald"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Starting from $100 per unit
+            </li>
+            <li>
+              <span class="perk-check check-emerald"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Secondary market — sell before maturity
+            </li>
+            <li>
+              <span class="perk-check check-emerald"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Tax reporting auto-generated every year
+            </li>
+          </ul>
+          <a href="#apply" class="card-cta cta-emerald">Start Investing →</a>
+        </div>
+
+        <!-- Mortgage -->
+        <div class="product-card card-indigo">
+          <div class="card-glow glow-indigo"></div>
+          <div class="card-badge badge-indigo">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Home Financing
+          </div>
+          <div class="card-icon icon-indigo">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="card-title">Mortgage Loan</div>
+          <div class="card-desc">Finance your dream home with competitive fixed or variable rates and a fully digital application process.</div>
+          <div class="card-rate">
+            <span class="rate-num gradient-cool">3.9%</span>
+            <span class="rate-unit">p.a.</span>
+          </div>
+          <div class="rate-label">Fixed rate · 30-year term · subject to approval</div>
+          <ul class="card-perks">
+            <li>
+              <span class="perk-check check-indigo"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Borrow up to $2 million
+            </li>
+            <li>
+              <span class="perk-check check-indigo"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Pre-approval in under 24 hours
+            </li>
+            <li>
+              <span class="perk-check check-indigo"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Overpay with no early repayment fee
+            </li>
+            <li>
+              <span class="perk-check check-indigo"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Dedicated mortgage advisor assigned
+            </li>
+          </ul>
+          <a href="#apply" class="card-cta cta-indigo">Check Eligibility →</a>
+        </div>
+
+        <!-- Cash Loan -->
+        <div class="product-card card-rose">
+          <div class="card-glow glow-rose"></div>
+          <div class="card-badge badge-rose">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Instant Approval
+          </div>
+          <div class="card-icon icon-rose">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <div class="card-title">Personal Cash Loan</div>
+          <div class="card-desc">Need funds fast? Get a personal loan with flexible repayment, no collateral required, disbursed in hours.</div>
+          <div class="card-rate">
+            <span class="rate-num" style="color:#fda4af">From 8%</span>
+            <span class="rate-unit">p.a.</span>
+          </div>
+          <div class="rate-label">Up to $50,000 · 12–60 month terms</div>
+          <ul class="card-perks">
+            <li>
+              <span class="perk-check check-rose"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              No collateral, no guarantor needed
+            </li>
+            <li>
+              <span class="perk-check check-rose"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Decision in minutes, cash in hours
+            </li>
+            <li>
+              <span class="perk-check check-rose"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Fixed monthly repayments — no surprises
+            </li>
+            <li>
+              <span class="perk-check check-rose"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Early repayment with no penalty
+            </li>
+          </ul>
+          <a href="#apply" class="card-cta cta-rose">Apply in Minutes →</a>
+        </div>
+
+        <!-- Savings Pot (bridge card) -->
+        <div class="product-card card-sky" style="grid-column: span 1;">
+          <div class="card-glow glow-sky"></div>
+          <div class="card-badge badge-sky">
+            New Feature
+          </div>
+          <div class="card-icon icon-sky">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <div class="card-title">Smart Savings Pots</div>
+          <div class="card-desc">Round-up every purchase into themed savings pots. Set goals, automate contributions, watch your balance grow effortlessly.</div>
+          <div class="card-rate">
+            <span class="rate-num" style="color:#7dd3fc">4.5%</span>
+            <span class="rate-unit">p.a.</span>
+          </div>
+          <div class="rate-label">Flexible access — withdraw anytime</div>
+          <ul class="card-perks">
+            <li>
+              <span class="perk-check check-sky"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Round-up & auto-save rules
+            </li>
+            <li>
+              <span class="perk-check check-sky"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Unlimited pots with custom names & emojis
+            </li>
+            <li>
+              <span class="perk-check check-sky"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Goal progress visualisation
+            </li>
+          </ul>
+          <a href="#apply" class="card-cta cta-sky">Set Up a Pot →</a>
+        </div>
+
+      </div><!-- /products-grid -->
+    </div>
+  </section>
+
+  <!-- ===== RATES TABLE ===== -->
+  <section class="rates-section" id="rates">
+    <div class="container">
+      <div class="rates-layout">
+        <div>
+          <div class="section-label">Transparent Rates</div>
+          <h2 class="section-title">Compare every<br><span class="gradient-gold">rate at a glance</span></h2>
+          <p class="section-desc">We publish all rates upfront — no teaser rates, no fine-print surprises. What you see is what you get.</p>
+          <br/>
+          <a href="#apply" class="btn-primary" style="display:inline-flex;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Open an Account
+          </a>
+        </div>
+        <div class="rates-table-wrap">
+          <table class="rates-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Rate</th>
+                <th>Term</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight">
+                <td class="td-product">High-Yield Deposit (12M)</td>
+                <td class="td-rate gold">6.8% p.a.</td>
+                <td>12 months</td>
+                <td><span class="td-badge bg-gold-badge">Promo</span></td>
+              </tr>
+              <tr>
+                <td class="td-product">High-Yield Deposit (6M)</td>
+                <td class="td-rate gold">6.1% p.a.</td>
+                <td>6 months</td>
+                <td><span class="td-badge bg-gold-badge">Promo</span></td>
+              </tr>
+              <tr>
+                <td class="td-product">High-Yield Deposit (3M)</td>
+                <td class="td-rate gold">5.5% p.a.</td>
+                <td>3 months</td>
+                <td><span class="td-badge bg-emerald-badge">Live</span></td>
+              </tr>
+              <tr>
+                <td class="td-product">Smart Savings Pot</td>
+                <td class="td-rate sky">4.5% p.a.</td>
+                <td>Flexible</td>
+                <td><span class="td-badge bg-emerald-badge">Live</span></td>
+              </tr>
+              <tr>
+                <td class="td-product">Government Bond (10Y)</td>
+                <td class="td-rate emerald">5.2% yield</td>
+                <td>10 years</td>
+                <td><span class="td-badge bg-emerald-badge">Live</span></td>
+              </tr>
+              <tr>
+                <td class="td-product">Corporate Bond (5Y)</td>
+                <td class="td-rate emerald">4.8% yield</td>
+                <td>5 years</td>
+                <td><span class="td-badge bg-emerald-badge">Live</span></td>
+              </tr>
+              <tr>
+                <td class="td-product">Mortgage — Fixed 30Y</td>
+                <td class="td-rate indigo">3.9% p.a.</td>
+                <td>30 years</td>
+                <td><span class="td-badge bg-emerald-badge">Live</span></td>
+              </tr>
+              <tr>
+                <td class="td-product">Mortgage — Fixed 15Y</td>
+                <td class="td-rate indigo">3.5% p.a.</td>
+                <td>15 years</td>
+                <td><span class="td-badge bg-emerald-badge">Live</span></td>
+              </tr>
+              <tr>
+                <td class="td-product">Personal Cash Loan</td>
+                <td class="td-rate rose">From 8% p.a.</td>
+                <td>12–60 months</td>
+                <td><span class="td-badge bg-emerald-badge">Live</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.78rem;color:var(--text-dim);margin-top:12px;">Rates reviewed monthly. Promotional rates valid until 30 April 2026. Subject to eligibility and terms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="steps-section" id="how-it-works">
+    <div class="container">
+      <div class="steps-header">
+        <div class="section-label">Simple Process</div>
+        <h2 class="section-title">Up and running in <span class="gradient-gold">4 steps</span></h2>
+        <p class="section-desc">From registration to earning or borrowing — the whole journey takes under 10 minutes.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <div class="step-title">Create your account</div>
+          <div class="step-desc">Download the Contoso Bank app, verify your identity with a selfie and ID scan — done in under 5 minutes.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <div class="step-title">Browse & choose a product</div>
+          <div class="step-desc">Explore deposits, bonds, mortgage, or cash loans. Use the rate calculator to see exactly what you'll earn or owe.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div class="step-title">Fund or apply</div>
+          <div class="step-desc">Top up your account via bank transfer or card, then activate your chosen product. Loan applications include a soft credit check.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <div class="step-title">Watch your money move</div>
+          <div class="step-desc">Track earnings, repayments, and portfolio performance in real time directly from your dashboard.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="testimonials-header">
+        <div class="section-label">Customer Stories</div>
+        <h2 class="section-title">Trusted by <span class="gradient-gold">thousands</span></h2>
+      </div>
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <div class="stars">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"The 6.8% fixed deposit is insane. I moved my savings over in minutes and now I'm earning more in a month than I did in a year at my old bank."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:rgba(245,158,11,0.15);color:var(--gold)">JT</div>
+            <div>
+              <div class="author-name">James T.</div>
+              <div class="author-role">High-Yield Deposit customer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"Pre-approval in 11 hours for my mortgage. I couldn't believe it. The whole process — from application to signing — was 100% digital."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:rgba(99,102,241,0.15);color:#a5b4fc">SM</div>
+            <div>
+              <div class="author-name">Sofia M.</div>
+              <div class="author-role">Mortgage customer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-text">"Got a $15k personal loan approved and in my account within 4 hours. Fixed rate, no hidden fees. I've already recommended Contoso Bank to everyone I know."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:rgba(244,63,94,0.15);color:#fda4af">AR</div>
+            <div>
+              <div class="author-name">Alex R.</div>
+              <div class="author-role">Cash Loan customer</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="faq-layout">
+        <div>
+          <div class="section-label">FAQ</div>
+          <h2 class="section-title">Common<br><span class="gradient-gold">questions</span></h2>
+          <p class="section-desc">Still have doubts? Visit our full <a href="../FAQ.html" style="color:var(--gold);text-decoration:none;">Help Center</a> or chat with our team 24/7.</p>
+          <br/>
+          <a href="../FAQ.html" class="btn-secondary" style="display:inline-flex;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Full Help Center
+          </a>
+        </div>
+        <div class="faq-list" id="faqList">
+
+          <div class="faq-item">
+            <button class="faq-q">
+              Are the promotional rates guaranteed?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">Yes — once you lock in a fixed-term deposit or fixed-rate loan, your rate is contractually guaranteed for the full term, even if market rates change. Promotional rates apply to new accounts opened before April 30 2026.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">
+              Is my deposit money safe?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">Absolutely. All deposits are FDIC-insured up to $250,000 through our partner bank. High-yield deposits are further ring-fenced from operational capital. Bonds are held in your name via a regulated custodian.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">
+              Can I break a fixed deposit early?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">Yes, early exits are allowed after a 30-day cooling-off period. You keep all interest accrued to date, minus a 0.5% early exit fee. No punitive penalties — we believe your money should stay accessible.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">
+              What credit score do I need for a personal loan?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">We use a holistic assessment — not just credit score. Our AI model considers income stability, spending behaviour, and credit history. Many customers with scores of 600+ are approved. Checking your eligibility is a soft inquiry and won't affect your score.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">
+              How do bond investments work on Contoso Bank?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">You purchase bonds directly via the app in fractional units from $100. Coupon payments are deposited into your Contoso Bank wallet on schedule. You can sell on our secondary marketplace before maturity at market price.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q">
+              How fast is mortgage pre-approval?
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">Most applicants receive a pre-approval decision within 24 hours. We use open banking data and automated underwriting to assess your application instantly — no mountains of paperwork required.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BANNER ===== -->
+  <section class="cta-section" id="apply">
+    <div class="container">
+      <div class="cta-banner">
+        <div class="section-label" style="justify-content:center;margin-bottom:18px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Limited-time offer
+        </div>
+        <h2 class="cta-title">Don't leave interest<br>on the table. <span class="gradient-gold">Start today.</span></h2>
+        <p class="cta-sub">Open your account in 5 minutes. Promotional rates available until April 30, 2026.</p>
+        <div class="cta-btn-row">
+          <a href="#" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Open Account — Free
+          </a>
+          <a href="../FAQ.html" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Read the FAQ First
+          </a>
+        </div>
+        <p class="cta-note">No credit card required · No commitment · Cancel anytime</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../FAQ.html" class="nav-logo" style="margin-bottom:0">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="url(#fGrad)"/>
+              <path d="M8 22L16 10L24 22H8Z" fill="white" opacity="0.9"/>
+              <circle cx="16" cy="18" r="3" fill="white"/>
+              <defs>
+                <linearGradient id="fGrad" x1="0" y1="0" x2="32" y2="32">
+                  <stop offset="0%" stop-color="#f59e0b"/>
+                  <stop offset="100%" stop-color="#10b981"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="logo-text">Contoso Bank</span>
+          </a>
+          <p>Smarter banking, bigger returns. FDIC insured through partner banks. © 2026 Contoso Bank Inc.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Products</div>
+          <ul class="footer-links">
+            <li><a href="#products">High-Yield Deposits</a></li>
+            <li><a href="#products">Bond Investments</a></li>
+            <li><a href="#products">Mortgage Loans</a></li>
+            <li><a href="#products">Personal Cash Loans</a></li>
+            <li><a href="#products">Smart Savings Pots</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="#">About Contoso Bank</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">Investor Relations</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <ul class="footer-links">
+            <li><a href="../FAQ.html">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Live Chat</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Contoso Bank Inc. All rights reserved.</span>
+        <span>
+          <a href="#">Privacy</a>
+          <span class="footer-sep">·</span>
+          <a href="#">Terms</a>
+          <span class="footer-sep">·</span>
+          <a href="#">Cookie Policy</a>
+          <span class="footer-sep">·</span>
+          <a href="../FAQ.html">Help Center</a>
+        </span>
+        <span>Rates valid until 30 Apr 2026. T&amp;Cs apply.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---- FAQ accordion ----
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const answer = item.querySelector('.faq-a');
+        const isOpen = item.classList.contains('open');
+
+        // close all
+        document.querySelectorAll('.faq-item.open').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-a').style.maxHeight = null;
+        });
+
+        // open clicked if it was closed
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // ---- Smooth scroll for anchor links ----
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ---- Hamburger stub (mobile) ----
+    document.querySelector('.hamburger')?.addEventListener('click', () => {
+      const nav = document.querySelector('.nav-links');
+      if (nav) {
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '68px';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'var(--bg-card)';
+        nav.style.borderBottom = '1px solid var(--border)';
+        nav.style.padding = '16px 24px';
+        nav.style.gap = '4px';
+      }
+    });
+  </script>
+</body>
+</html>
+
